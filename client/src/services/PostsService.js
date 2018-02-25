@@ -1,23 +1,25 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchPosts () {
-    return Api().get('posts')
+  fetchProducts () {
+    return Api().get('products?token=' + localStorage.session)
   },
-
-  addPost (params) {
-    return Api().post('add_post', params)
+  addToCart (data) {
+    return Api().post('addtocart?token=' + localStorage.session, data)
   },
-
-  updatePost (params) {
-    return Api().put('posts/' + params.id, params)
+  getCartProducts (userId) {
+    return Api().get('cart/' + userId + '?token=' + localStorage.session)
   },
-
-  getPost (params) {
-    return Api().get('post/' + params.id)
+  removeFromCart (productId) {
+    return Api().delete('cart/removeproduct/' + productId + '?token=' + localStorage.session)
   },
-
-  deletePost (id) {
-    return Api().delete('posts/' + id)
+  authenticate (data) {
+    return Api().post('authenticate?token=' + localStorage.session, data)
+  },
+  registration (data) {
+    return Api().post('register?token=' + localStorage.session, data)
+  },
+  logout () {
+    return Api().get('logout')
   }
 }

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Posts from '@/components/Posts'
-import addpost from '@/components/AddPost'
-import editpost from '@/components/EditPost'
+import Products from '../components/Products'
+import Login from '../components/login'
+import Cart from '@/components/cart'
 
 Vue.use(Router)
 
@@ -10,19 +10,56 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/products',
+      name: 'products',
+      component: Products,
+      beforeEnter (to, from, next) {
+        if (localStorage.session === undefined) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
       path: '/',
-      name: 'Posts',
-      component: Posts
+      name: 'products',
+      component: Products,
+      beforeEnter (to, from, next) {
+        if (localStorage.session === undefined) {
+          next('/login')
+        } else {
+          next('/products')
+        }
+      }
     },
     {
-      path: '/posts/add',
-      component: addpost,
-      name: 'addpost'
+      path: '/cart',
+      component: Cart,
+      name: 'cart',
+      beforeEnter (to, from, next) {
+        if (localStorage.session === undefined) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
-      path: '/posts/:id/edit',
-      component: editpost,
-      name: 'editpost'
+      path: '/login',
+      component: Login,
+      name: 'login',
+      beforeEnter (to, from, next) {
+        if (localStorage.session === undefined) {
+          next()
+        } else {
+          next('/products')
+        }
+      }
+    },
+    {
+      path: '*',
+      redirect: '/products'
     }
   ]
 })

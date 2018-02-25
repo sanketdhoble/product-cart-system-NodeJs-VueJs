@@ -1,0 +1,70 @@
+<template>
+  <ModalWrapper :show="show" @close="close">
+    <div id="productmodal">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-5">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ModalWrapper>
+</template>
+
+<script>
+  import RequestApi from '../../services/PostsService'
+  import ModalWrapper from './Modalwrapper'
+
+  export default {
+    name: 'ProductModal',
+    components: {
+      ModalWrapper
+    },
+    props: {
+      show: {
+        type: Boolean,
+        default () {
+          return false
+        }
+      },
+      deniedRowObj: {
+        type: Object,
+        default () {
+          return {}
+        }
+      }
+    },
+    mounted () {
+    },
+    data () {
+      return {
+        tagsInput: '',
+        selected: '',
+        otherReason: ''
+      }
+    },
+    methods: {
+      close () {
+        console.log('row data inside modal', this.deniedRowObj)
+        this.$emit('close')
+      }
+    }
+  }
+</script>
+
+
+<style>
+  .reject_resn{
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .choice{
+    width: 300px;
+    height: 30px;
+    margin: 30px;
+  }
+  .exit_btn{
+    border: 0px;
+  }
+</style>
