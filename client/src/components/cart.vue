@@ -88,6 +88,11 @@ export default {
 //        )
       } catch (e) {
         console.log(e)
+        if (e.response.status === 403) {
+          console.log('session Expired, Login again')
+          delete localStorage.session
+          this.$router.push({ name: 'login' })
+        }
       }
 //      this.$router.push({ name: 'products' })
     },
@@ -99,6 +104,11 @@ export default {
       } catch (e) {
         console.log(e)
         alert('error occured')
+        if (e.response.status === 403) {
+          console.log('session Expired, Login again')
+          delete localStorage.session
+          this.$router.push({ name: 'login' })
+        }
       }
     }
   }

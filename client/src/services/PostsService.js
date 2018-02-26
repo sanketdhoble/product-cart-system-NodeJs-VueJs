@@ -14,10 +14,10 @@ export default {
     return Api().delete('cart/removeproduct/' + productId + '?token=' + localStorage.session)
   },
   authenticate (data) {
-    return Api().post('authenticate?token=' + localStorage.session, data)
+    return Api().post('authenticate', data)
   },
   registration (data) {
-    return Api().post('register?token=' + localStorage.session, data)
+    return Api().post('register', data)
   },
   logout () {
     return Api().get('logout')

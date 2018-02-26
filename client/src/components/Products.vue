@@ -152,6 +152,12 @@
           console.log(this.products)
         } catch (e) {
           $.notify(e.response.data.message, 'danger')
+          // console.log(e.response)
+          if (e.response.status === 403) {
+            console.log('session Expired, Login again')
+            delete localStorage.session
+            this.$router.push({ name: 'login' })
+          }
         }
       },
       getProduct (product) {
@@ -195,6 +201,11 @@
         } catch (e) {
           console.log(e.response.data.message)
           $.notify(e.response.data.message, 'danger')
+          if (e.response.status === 403) {
+            console.log('session Expired, Login again')
+            delete localStorage.session
+            this.$router.push({ name: 'login' })
+          }
         }
       },
       async logout () {
@@ -204,6 +215,11 @@
           this.$router.push({ name: 'login' })
         } catch (e) {
           $.notify(e.response.data.message, 'danger')
+          if (e.response.status === 403) {
+            console.log('session Expired, Login again')
+            delete localStorage.session
+            this.$router.push({ name: 'login' })
+          }
         }
       }
     }
